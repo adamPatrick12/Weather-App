@@ -1,0 +1,25 @@
+.input{
+    padding-top: 1rem;
+}
+
+.main-temp{
+    height: 200px;
+    background-color: rgba(199, 174, 174, 0.507);
+    width: 40%;
+    display: flex;
+    justify-content: center;
+}
+
+.temp-font{
+    background-color: aquamarine;
+}
+
+.box{
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+h2{
+    font-size: 50px;
+}
