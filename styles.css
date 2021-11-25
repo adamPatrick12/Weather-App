@@ -4,10 +4,10 @@
 
 .main-temp{
     height: 200px;
-    background-color: rgba(199, 174, 174, 0.507);
     width: 40%;
     display: flex;
     justify-content: center;
+    flex-direction: column;
 }
 
 .temp-font{
@@ -17,9 +17,74 @@
 .box{
     display: flex;
     justify-content: center;
-    margin-top: 2rem;
+    margin-top: 1rem;
+    border: solid red 1px;
+}
+
+.tenDayBox{
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+    width: 100%;
+}
+
+.tenDayForcast{
+    height: 215px;
+    width: 85%;
+    display: flex;
+    justify-content: start;
+    flex-direction: column;
+    border: solid red 1px;
 }
 
 h2{
     font-size: 50px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    align-self: center;
+    margin: 0;
+}
+
+.TempBlock{
+    border: black 1px solid;
+    display: flex;
+    justify-content: space-between;
+}
+
+h4{
+    font-size: 17px;
+    font-family: 'Roboto', sans-serif;
+    align-self: center;
+    margin: 0;
+    font-weight: 300;
+}
+
+h3{
+    font-size: 17px;
+    font-family: 'Roboto', sans-serif;
+    align-self: center;
+    margin: 0;
+}
+
+h5{
+    font-size: 20px;
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding-top: 5px; 
+}
+
+.thermometer{
+    background: linear-gradient(90deg, rgba(27,67,217,1) 22%, rgba(242,14,14,1) 100%);
+    width: 85px;
+    height: 8px;
+    margin-top: 15px;
+    margin-left: 2px;
+    margin-right: 3px;
+    border-radius: 4px;
+}
+
+.highLowBlock{
+    display: flex;
+    flex-direction: row;
+    padding-right: 10px;
 }

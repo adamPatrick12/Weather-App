@@ -11,6 +11,7 @@ let wind;
 const div = document.querySelector('.main-temp');
 
 function appendTempeture(temp) {
+  div.removeChild(div.lastElementChild);
   const tempH2 = document.createElement('h2');
   tempH2.textContent = `${temp}° C`;
   div.appendChild(tempH2);
