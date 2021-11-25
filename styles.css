@@ -4,7 +4,7 @@
 
 .main-temp{
     height: 200px;
-    width: 40%;
+    width: 80%;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -29,7 +29,7 @@
 }
 
 .tenDayForcast{
-    height: 215px;
+    height: 220px;
     width: 85%;
     display: flex;
     justify-content: start;
@@ -60,10 +60,12 @@ h4{
 }
 
 h3{
-    font-size: 17px;
+    font-size: 15px;
     font-family: 'Roboto', sans-serif;
     align-self: center;
     margin: 0;
+    padding-right: 10px;
+    padding-top: 3px;
 }
 
 h5{
@@ -73,18 +75,35 @@ h5{
     padding-top: 5px; 
 }
 
-.thermometer{
-    background: linear-gradient(90deg, rgba(27,67,217,1) 22%, rgba(242,14,14,1) 100%);
-    width: 85px;
-    height: 8px;
-    margin-top: 15px;
+.desc{
+    background: transparent;
+    width: 100px;
+    height: 20px;
+    margin-top: 7px;
     margin-left: 2px;
     margin-right: 3px;
     border-radius: 4px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .highLowBlock{
     display: flex;
     flex-direction: row;
     padding-right: 10px;
+    height: 40px;
+}
+
+h6{
+    font-size: 20px;
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    font-weight: 200; 
+}
+
+img{
+    width: 30px;
+    height: 30px;
+    margin-top: 3px;
 }
