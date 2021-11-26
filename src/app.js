@@ -7,6 +7,7 @@ let description;
 let humidity;
 let actualTemp;
 let wind;
+let cloudiness;
 let place;
 let day2;
 let day3;
@@ -40,6 +41,10 @@ const imgDiv4 = document.querySelector('.weatherImg4');
 const forcastDiv5 = document.querySelector('.desc5');
 const imgDiv5 = document.querySelector('.weatherImg5');
 
+const humidityDiv = document.querySelector('.humidity');
+const feelsLikeDiv = document.querySelector('.feelsLike');
+const cloudinessDiv = document.querySelector('.cloudiness');
+
 function weatherCheck(imgCode) { // checking API for imgCode and selecting the appropriate img one
   let imgSrc = '';
 
@@ -64,6 +69,50 @@ function weatherCheck(imgCode) { // checking API for imgCode and selecting the a
   }
 
   return imgSrc;
+}
+
+function humidityCheck(humid) {
+  let humidDesc = '';
+
+  if (humid <= 25) {
+    humidDesc = 'Humidity is low right now';
+  } else if (humid > 25 && humid <= 50) {
+    humidDesc = 'Humidity is moderate right now';
+  } else if (humid > 50 && humid <= 75) {
+    humidDesc = 'Humidity is high right now';
+  } else {
+    humidDesc = 'Humidity is very high right now';
+  }
+  return humidDesc;
+}
+
+function feelsLikeVSActual(FL, AC) {
+  let feelsLikeDesc = '';
+
+  if (FL < AC) {
+    feelsLikeDesc = 'Wind is making it feel colder.';
+  } else if (FL > AC) {
+    feelsLikeDesc = 'Humidity is making it feel warmer.';
+  } else {
+    feelsLikeDesc = 'Similar to actual tempature';
+  }
+
+  return feelsLikeDesc;
+}
+
+function cloudinessCheck(cloudinessPercent) {
+  let cloudinessDesc = '';
+
+  if (cloudinessPercent <= 25) {
+    cloudinessDesc = 'Cloud coverage is low right now';
+  } else if (cloudinessPercent > 25 && cloudinessPercent <= 50) {
+    cloudinessDesc = 'Cloud coverage is moderate right now';
+  } else if (cloudinessPercent > 50 && cloudinessPercent <= 75) {
+    cloudinessDesc = 'Cloud coverage is high right now';
+  } else {
+    cloudinessDesc = 'Cloud coverage is very high right now';
+  }
+  return cloudinessDesc;
 }
 
 function appendCity(city) {
@@ -216,6 +265,44 @@ function appendImg5(img) {
   imgDiv5.appendChild(weatherImg);
 }
 
+// Weather INFO append
+
+function appendhumidity(humi) {
+  while (humidityDiv.firstChild) {
+    humidityDiv.removeChild(humidityDiv.firstChild);
+  }
+  const humiditySpan = document.createElement('span');
+  humiditySpan.textContent = `${Math.round(humi)}%`;
+  const humidityDesc = document.createElement('aside');
+  humidityDesc.textContent = humidityCheck(humi);
+  humidityDiv.appendChild(humiditySpan);
+  humidityDiv.appendChild(humidityDesc);
+}
+
+function appendFeelsLike(FL, realTemp) {
+  while (feelsLikeDiv.firstChild) {
+    feelsLikeDiv.removeChild(feelsLikeDiv.firstChild);
+  }
+  const FeelsLikeSpan = document.createElement('span');
+  FeelsLikeSpan.textContent = `${Math.round(FL)}°`;
+  const FeelsLikeDesc = document.createElement('aside');
+  FeelsLikeDesc.textContent = feelsLikeVSActual(FL, realTemp);
+  feelsLikeDiv.appendChild(FeelsLikeSpan);
+  feelsLikeDiv.appendChild(FeelsLikeDesc);
+}
+
+function appendcloudiness(cloud) {
+  while (cloudinessDiv.firstChild) {
+    cloudinessDiv.removeChild(cloudinessDiv.firstChild);
+  }
+  const cloudinesSpan = document.createElement('span');
+  cloudinesSpan.textContent = `${Math.round(cloud)}%`;
+  const cloudinesDesc = document.createElement('aside');
+  cloudinesDesc.textContent = cloudinessCheck(cloud);
+  cloudinessDiv.appendChild(cloudinesSpan);
+  cloudinessDiv.appendChild(cloudinesDesc);
+}
+
 async function getCurrentWeather() {
   const location = input.value;
   try {
@@ -233,7 +320,11 @@ async function getCurrentWeather() {
     description = weatherData.list[0].weather[0].main;
     appenndDesc(description);
     feelsLike = weatherData.list[0].main.feels_like;
+    appendFeelsLike(feelsLike, actualTemp);
     humidity = weatherData.list[0].main.humidity;
+    appendhumidity(humidity);
+    cloudiness = weatherData.list[0].clouds.all;
+    appendcloudiness(cloudiness);
     wind = weatherData.list[0].wind.speed;
   } catch {
     console.log('AYO');
