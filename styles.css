@@ -29,7 +29,7 @@
 }
 
 .tenDayForcast{
-    height: 220px;
+    height: 240px;
     width: 85%;
     display: flex;
     justify-content: start;
@@ -79,6 +79,8 @@ h5{
     font-family: 'Roboto', sans-serif;
     margin: 0;
     padding-top: 5px; 
+    display: inline-block;
+    
 }
 
 .desc, .desc2, .desc3, .desc4, .desc5{
@@ -112,4 +114,56 @@ img{
     width: 30px;
     height: 30px;
     margin-top: 3px;
+}
+
+.weatherInfo{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-evenly ;
+    margin-left: 0.6rem;
+    margin-right: 0.6rem;
+}
+
+.weatherInfoBox, .weatherInfoBoxUV{
+    width: 9.5rem;
+    height: 9.5rem;
+    margin-top: 1rem;
+    border-radius: 10px;
+    border: 1px black solid;
+    background-color: transparent;
+}
+
+.github{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 2rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+svg{
+    width: 2rem;
+    height: 2rem;
+}
+
+a{
+    color: black;
+}
+
+p{
+    color: rgba(128, 128, 128, 0.603);
+    padding-top: 0.3rem;
+    padding-left: 0.3rem;
+    font-size: 12px;
+    display: inline-block;
+}
+
+.infoImg{
+   width: 1.2rem;
+   height: 1.2rem;
+   margin-left: 6px;
+   margin-bottom: 3px;
+   display: inline-block;
 }
