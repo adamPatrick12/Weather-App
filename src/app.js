@@ -1,13 +1,14 @@
 const btn = document.querySelector('.weather');
 const input = document.querySelector('.input');
-let maxTemp;
-let minTemp;
 let feelsLike;
 let description;
 let humidity;
 let actualTemp;
 let wind;
+let windDirection;
 let cloudiness;
+let pressure;
+let sunset;
 let place;
 let day2;
 let day3;
@@ -44,6 +45,9 @@ const imgDiv5 = document.querySelector('.weatherImg5');
 const humidityDiv = document.querySelector('.humidity');
 const feelsLikeDiv = document.querySelector('.feelsLike');
 const cloudinessDiv = document.querySelector('.cloudiness');
+const windSpeedDiv = document.querySelector('.windSpeed');
+const sunsetDiv = document.querySelector('.sunset');
+const pressureDiv = document.querySelector('.pressure');
 
 function weatherCheck(imgCode) { // checking API for imgCode and selecting the appropriate img one
   let imgSrc = '';
@@ -113,6 +117,20 @@ function cloudinessCheck(cloudinessPercent) {
     cloudinessDesc = 'Cloud coverage is very high right now';
   }
   return cloudinessDesc;
+}
+
+function checkPressure(pres) {
+  let pressureDesc = '';
+
+  if (pres > 1022) {
+    pressureDesc = 'Air pressure is high';
+  } else if (pres < 1022 && pres < 1009) {
+    pressureDesc = 'Air pressure is normal';
+  } else {
+    pressureDesc = 'Air pressure is low';
+  }
+
+  return pressureDesc;
 }
 
 function appendCity(city) {
@@ -303,6 +321,41 @@ function appendcloudiness(cloud) {
   cloudinessDiv.appendChild(cloudinesDesc);
 }
 
+function appendWind(speed, direction) {
+  while (windSpeedDiv.firstChild) {
+    windSpeedDiv.removeChild(windSpeedDiv.firstChild);
+  }
+  const windSpan = document.createElement('span');
+  windSpan.textContent = `${Math.round(speed * 1.609)}km`;
+  const windDesc = document.createElement('aside');
+  windDesc.textContent = `Wind is blowing at ${direction}° degrees (Meteorological)`;
+  windSpeedDiv.appendChild(windSpan);
+  windSpeedDiv.appendChild(windDesc);
+}
+
+function appendSunset(time) {
+  while (sunsetDiv.firstChild) {
+    sunsetDiv.removeChild(sunsetDiv.firstChild);
+  }
+  const sunsetTime = document.createElement('aside');
+  sunsetTime.textContent = `${time}`;
+  sunsetTime.classList.add('time');
+  sunsetDiv.appendChild(sunsetTime);
+}
+
+function appendPressure(pres) {
+  while (pressureDiv.firstChild) {
+    pressureDiv.removeChild(pressureDiv.firstChild);
+  }
+  const pressureSpan = document.createElement('span');
+  pressureSpan.textContent = `${Math.round(pres)} hPa`;
+  pressureSpan.classList.add('pressure');
+  const pressureDesc = document.createElement('aside');
+  pressureDesc.textContent = checkPressure(pres);
+  pressureDiv.appendChild(pressureSpan);
+  pressureDiv.appendChild(pressureDesc);
+}
+
 async function getCurrentWeather() {
   const location = input.value;
   try {
@@ -325,7 +378,28 @@ async function getCurrentWeather() {
     appendhumidity(humidity);
     cloudiness = weatherData.list[0].clouds.all;
     appendcloudiness(cloudiness);
+    pressure = weatherData.list[0].main.pressure;
+    appendPressure(pressure);
+  } catch {
+    console.log('AYO');
+  }
+}
+
+async function getWindWeather() {
+  const location = input.value;
+  try {
+    const response = await fetch(
+      `http://api.openweathermap.org/data/2.5/forecast?q=${location}&units=imperial&appid=10c73b0fb77ff9c5076821c36b0d55c3`, // grabing imperial data
+      { mode: 'cors' },
+    );
+    const weatherData = await response.json();
     wind = weatherData.list[0].wind.speed;
+    windDirection = weatherData.list[0].wind.deg;
+    appendWind(wind, windDirection);
+    sunset = weatherData.city.sunset;
+    const sunsetConverted = new Date(sunset).toLocaleTimeString('en-US'); // converting Unix time
+    appendSunset(sunsetConverted);
+    console.log(weatherData);
   } catch {
     console.log('AYO');
   }
@@ -377,4 +451,5 @@ async function getForcastWeather() {
 btn.addEventListener('click', () => {
   getCurrentWeather();
   getForcastWeather();
+  getWindWeather();
 });
