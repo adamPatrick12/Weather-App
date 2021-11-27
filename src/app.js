@@ -1,5 +1,6 @@
 const btn = document.querySelector('.weather');
 const input = document.querySelector('.input');
+const switchBtn = document.querySelector('#flexSwitchCheckDefault');
 let feelsLike;
 let description;
 let humidity;
@@ -67,7 +68,7 @@ function weatherCheck(imgCode) { // checking API for imgCode and selecting the a
   } else if (imgCode === '11d' || imgCode === '11n') {
     imgSrc = 'images/thunder.png';
   } else if (imgCode === '13d' || imgCode === '13n') {
-    imgSrc = 'images/snowFlake-regular.svg';
+    imgSrc = 'images/snowflake.png';
   } else if (imgCode === '50d' || imgCode === '50n') {
     imgSrc = 'images/Mist.png';
   }
@@ -79,13 +80,13 @@ function humidityCheck(humid) {
   let humidDesc = '';
 
   if (humid <= 25) {
-    humidDesc = 'Humidity is low right now';
+    humidDesc = 'Humidity is low right now.';
   } else if (humid > 25 && humid <= 50) {
-    humidDesc = 'Humidity is moderate right now';
+    humidDesc = 'Humidity is moderate right now.';
   } else if (humid > 50 && humid <= 75) {
-    humidDesc = 'Humidity is high right now';
+    humidDesc = 'Humidity is high right now.';
   } else {
-    humidDesc = 'Humidity is very high right now';
+    humidDesc = 'Humidity is very high right now.';
   }
   return humidDesc;
 }
@@ -98,7 +99,7 @@ function feelsLikeVSActual(FL, AC) {
   } else if (FL > AC) {
     feelsLikeDesc = 'Humidity is making it feel warmer.';
   } else {
-    feelsLikeDesc = 'Similar to actual tempature';
+    feelsLikeDesc = 'Similar to actual tempature.';
   }
 
   return feelsLikeDesc;
@@ -108,13 +109,13 @@ function cloudinessCheck(cloudinessPercent) {
   let cloudinessDesc = '';
 
   if (cloudinessPercent <= 25) {
-    cloudinessDesc = 'Cloud coverage is low right now';
+    cloudinessDesc = 'Cloud coverage is low right now.';
   } else if (cloudinessPercent > 25 && cloudinessPercent <= 50) {
-    cloudinessDesc = 'Cloud coverage is moderate right now';
+    cloudinessDesc = 'Cloud coverage is moderate right now.';
   } else if (cloudinessPercent > 50 && cloudinessPercent <= 75) {
-    cloudinessDesc = 'Cloud coverage is high right now';
+    cloudinessDesc = 'Cloud coverage is high right now.';
   } else {
-    cloudinessDesc = 'Cloud coverage is very high right now';
+    cloudinessDesc = 'Cloud coverage is very high right now.';
   }
   return cloudinessDesc;
 }
@@ -123,11 +124,11 @@ function checkPressure(pres) {
   let pressureDesc = '';
 
   if (pres > 1022) {
-    pressureDesc = 'Air pressure is high';
+    pressureDesc = 'Air pressure is high.';
   } else if (pres < 1022 && pres < 1009) {
-    pressureDesc = 'Air pressure is normal';
+    pressureDesc = 'Air pressure is normal.';
   } else {
-    pressureDesc = 'Air pressure is low';
+    pressureDesc = 'Air pressure is low.';
   }
 
   return pressureDesc;
@@ -373,12 +374,8 @@ async function getCurrentWeather() {
     place = weatherData.city.name;
     console.log(place);
     appendCity(place);
-    actualTemp = weatherData.list[0].main.temp;
-    appendTempeture(actualTemp);
     description = weatherData.list[0].weather[0].main;
     appenndDesc(description);
-    feelsLike = weatherData.list[0].main.feels_like;
-    appendFeelsLike(feelsLike, actualTemp);
     humidity = weatherData.list[0].main.humidity;
     appendhumidity(humidity);
     cloudiness = weatherData.list[0].clouds.all;
@@ -386,7 +383,12 @@ async function getCurrentWeather() {
     pressure = weatherData.list[0].main.pressure;
     appendPressure(pressure);
   } catch {
-    console.log('AYO');
+    while (headerTemp.firstChild) {
+      headerTemp.removeChild(headerTemp.firstChild);
+    }
+    const errorMsg = document.createElement('h2');
+    errorMsg.textContent = 'Location Not Found';
+    headerTemp.appendChild(errorMsg);
   }
 }
 
@@ -406,18 +408,30 @@ async function getWindWeather() {
     appendSunset(sunsetConverted);
     console.log(weatherData);
   } catch {
-    console.log('AYO');
+    console.log('error');
   }
 }
 
 async function getForcastWeather() {
   const location = input.value;
+  let fahrenheitOrCelsius;
+
+  if (switchBtn.checked === true) {
+    fahrenheitOrCelsius = 'imperial';
+  } else {
+    fahrenheitOrCelsius = 'metric';
+  }
+
   try {
     const response = await fetch(
-      `http://api.openweathermap.org/data/2.5/forecast?q=${location}&units=metric&appid=10c73b0fb77ff9c5076821c36b0d55c3`,
+      `http://api.openweathermap.org/data/2.5/forecast?q=${location}&units=${fahrenheitOrCelsius}&appid=10c73b0fb77ff9c5076821c36b0d55c3`,
       { mode: 'cors' },
     );
     const weatherData = await response.json();
+    actualTemp = weatherData.list[0].main.temp;
+    appendTempeture(actualTemp);
+    feelsLike = weatherData.list[0].main.feels_like;
+    appendFeelsLike(feelsLike, actualTemp);
     day2 = weatherData.list[7].main.temp;
     desc2 = weatherData.list[7].weather[0].description;
     imgValue = weatherData.list[7].weather[0].icon;
@@ -449,7 +463,7 @@ async function getForcastWeather() {
     appendForcastDescription5(desc6);
     appendForcastTemp5(day6);
   } catch {
-    console.log('AYO');
+    console.log('error');
   }
 }
 
@@ -457,4 +471,5 @@ btn.addEventListener('click', () => {
   getCurrentWeather();
   getForcastWeather();
   getWindWeather();
+  input.value = '';
 });

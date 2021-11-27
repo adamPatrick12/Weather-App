@@ -20,13 +20,18 @@
           <div class="d-flex flex-wrap align-items-center justify-content-around">
            
             <div class= "title">
-                <h1>Forcast</h1>
+               <h1>Weather</h1> <img src="images/flag.png" class="forcastImage" alt="">
             </div>
 
             <div class="container">
                 <div class="row align-items-start">
-              <input type="text" class="form-control form-control-dark input" placeholder="Search...">
+              <input type="text" type= "submit" class="form-control form-control-dark input" placeholder="Search...">
               <button type="button" class="btn btn-outline-light me-2 weather">Submit</button>
+             
+              <div class="form-check form-switch switch">
+                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                <label class="form-check-label" for="flexSwitchCheckDefault">°F</label>
+              </div>
             </div>
         </div>
 
@@ -47,8 +52,8 @@
    <div class="tenDayBox">
         <div class="tenDayForcast">
             
-            <h5> <i class="far fa-calendar-alt"></i>  5 - DAY - FORECAST</h5>
-                    <div class="TempBlock">
+            <h5 id="tableTitle"> <i class="far fa-calendar-alt" ></i>  5 - DAY - FORECAST</h5>
+                    <div class="TempBlock" id="blockFirst">
                         <h5>Thu </h5>
                             <div class="weatherImg">
                                 
@@ -57,30 +62,27 @@
                         <div class="desc">         
                         </div>
                     </div>     
-                </div>
-                <div class="TempBlock">
+                </div> 
+                <div class="TempBlock" id="blockMid">
                     <h5>Thu </h5>
                         <div class="weatherImg2">
-                           
-
-
                         </div>
                     <div class="highLowBlock">
                     <div class="desc2">         
                     </div>
                 </div>     
             </div>
-            <div class="TempBlock">
+            <div class="TempBlock" id="blockMid">
                 <h5>Thu </h5>
                     <div class="weatherImg3">
-                        
+
                     </div>
                 <div class="highLowBlock">
                 <div class="desc3">         
                 </div>
             </div>     
         </div>
-        <div class="TempBlock">
+        <div class="TempBlock" id="blockMid">
             <h5>Thu </h5>
                 <div class="weatherImg4">
                     
@@ -90,7 +92,7 @@
             </div>
         </div>     
         </div>
-        <div class="TempBlock">
+        <div class="TempBlock" id="blockLast">
             <h5>Thu </h5>
                 <div class="weatherImg5">
                     
