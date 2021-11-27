@@ -1,3 +1,8 @@
+body{
+    background: rgb(177,193,208);
+background: linear-gradient(180deg, rgba(177,193,208,1) 0%, rgba(82,88,118,1) 83%);
+}
+
 .input{
     padding-top: 1rem;
 }
@@ -10,15 +15,10 @@
     flex-direction: column;
 }
 
-.temp-font{
-    background-color: aquamarine;
-}
-
 .box{
     display: flex;
     justify-content: center;
     margin-top: 1rem;
-    border: solid red 1px;
 }
 
 .tenDayBox{
@@ -26,6 +26,7 @@
     justify-content: center;
     margin-top: 1rem;
     width: 100%;
+    
 }
 
 .tenDayForcast{
@@ -34,7 +35,7 @@
     display: flex;
     justify-content: start;
     flex-direction: column;
-    border: solid red 1px;
+  
 }
 
 h2{
@@ -43,12 +44,24 @@ h2{
     font-weight: 500;
     align-self: center;
     margin: 0;
+    color: whitesmoke;
 }
 
 .TempBlock{
-    border: black 1px solid;
     display: flex;
     justify-content: space-between;
+    border: rgb(219, 217, 217) 1px solid;
+}
+
+.forcastImage{
+    color: #ffffff;
+    margin-left: 0.5rem;
+    filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(103deg) brightness(105%) contrast(105%);
+}
+
+.forcastImage2{
+    color: #ffffff;
+    margin-left: 0.5rem;
 }
 
 h4{
@@ -58,6 +71,7 @@ h4{
     margin: 0;
     font-weight: 300;
     margin-left: 8px;
+   color: whitesmoke
 }
 
 h3{
@@ -68,6 +82,7 @@ h3{
     padding-right: 10px;
     padding-top: 3px;
     font-weight: 900;
+    color: whitesmoke;
 }
 
 .tempFormat{
@@ -80,7 +95,7 @@ h5{
     margin: 0;
     padding-top: 5px; 
     display: inline-block;
-    
+    color: whitesmoke;
 }
 
 .desc, .desc2, .desc3, .desc4, .desc5{
@@ -130,8 +145,9 @@ img{
     height: 9.5rem;
     margin-top: 1rem;
     border-radius: 10px;
-    border: 1px black solid;
+    border: 1px rgb(199, 196, 196) solid;
     background-color: transparent;
+    color: whitesmoke;
 }
 
 .github{
@@ -149,11 +165,11 @@ svg{
 }
 
 a{
-    color: black;
+    color: rgb(199, 196, 196);
 }
 
 p{
-    color: rgba(128, 128, 128, 0.603);
+    color: rgba(189, 186, 186, 0.918);
     padding-top: 0.3rem;
     padding-left: 0.3rem;
     font-size: 12px;
@@ -196,4 +212,8 @@ aside{
 
 .pressure{
     font-size: 2rem
+}
+
+h1{
+    font-family: 'Roboto', sans-serif;
 }

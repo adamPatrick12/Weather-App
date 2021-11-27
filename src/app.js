@@ -67,7 +67,7 @@ function weatherCheck(imgCode) { // checking API for imgCode and selecting the a
   } else if (imgCode === '11d' || imgCode === '11n') {
     imgSrc = 'images/thunder.png';
   } else if (imgCode === '13d' || imgCode === '13n') {
-    imgSrc = 'images/snowFlake.png';
+    imgSrc = 'images/snowFlake-regular.svg';
   } else if (imgCode === '50d' || imgCode === '50n') {
     imgSrc = 'images/Mist.png';
   }
@@ -176,6 +176,7 @@ function appendImg(img) {
   }
   const weatherImg = document.createElement('img');
   weatherImg.src = weatherCheck(img);
+  weatherImg.classList.add('forcastImage');
   imgDiv.appendChild(weatherImg);
 }
 
@@ -201,6 +202,7 @@ function appendImg2(img) {
     imgDiv2.removeChild(imgDiv2.firstChild);
   }
   const weatherImg = document.createElement('img');
+  weatherImg.classList.add('forcastImage');
   weatherImg.src = weatherCheck(img);
   imgDiv2.appendChild(weatherImg);
 }
@@ -228,6 +230,7 @@ function appendImg3(img) {
   }
   const weatherImg = document.createElement('img');
   weatherImg.src = weatherCheck(img);
+  weatherImg.classList.add('forcastImage');
   imgDiv3.appendChild(weatherImg);
 }
 
@@ -254,6 +257,7 @@ function appendImg4(img) {
   }
   const weatherImg = document.createElement('img');
   weatherImg.src = weatherCheck(img);
+  weatherImg.classList.add('forcastImage');
   imgDiv4.appendChild(weatherImg);
 }
 
@@ -280,6 +284,7 @@ function appendImg5(img) {
   }
   const weatherImg = document.createElement('img');
   weatherImg.src = weatherCheck(img);
+  weatherImg.classList.add('forcastImage');
   imgDiv5.appendChild(weatherImg);
 }
 
