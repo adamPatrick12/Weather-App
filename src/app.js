@@ -1,31 +1,6 @@
 const btn = document.querySelector('.weather');
 const input = document.querySelector('.input');
 const switchBtn = document.querySelector('#flexSwitchCheckDefault');
-let feelsLike;
-let description;
-let humidity;
-let actualTemp;
-let wind;
-let windDirection;
-let cloudiness;
-let pressure;
-let sunset;
-let place;
-let day2;
-let day3;
-let day4;
-let day5;
-let day6;
-let desc2;
-let desc3;
-let desc4;
-let desc5;
-let desc6;
-let imgValue;
-let imgValue2;
-let imgValue3;
-let imgValue4;
-let imgValue5;
 
 const headerTemp = document.querySelector('.main-temp');
 const forcastDiv = document.querySelector('.desc');
@@ -50,7 +25,8 @@ const windSpeedDiv = document.querySelector('.windSpeed');
 const sunsetDiv = document.querySelector('.sunset');
 const pressureDiv = document.querySelector('.pressure');
 
-function weatherCheck(imgCode) { // checking API for imgCode and selecting the appropriate img one
+function weatherCheck(imgCode) {
+  // checking API for imgCode and selecting the right img for the weather
   let imgSrc = '';
 
   if (imgCode === '04d' || imgCode === '04n') {
@@ -76,7 +52,7 @@ function weatherCheck(imgCode) { // checking API for imgCode and selecting the a
   return imgSrc;
 }
 
-function humidityCheck(humid) {
+function humidityCheck(humid) { // checking humidity to assign right description
   let humidDesc = '';
 
   if (humid <= 25) {
@@ -90,6 +66,7 @@ function humidityCheck(humid) {
   }
   return humidDesc;
 }
+// comparing actual temp to feelsLike temp to assign right description
 
 function feelsLikeVSActual(FL, AC) {
   let feelsLikeDesc = '';
@@ -105,7 +82,7 @@ function feelsLikeVSActual(FL, AC) {
   return feelsLikeDesc;
 }
 
-function cloudinessCheck(cloudinessPercent) {
+function cloudinessCheck(cloudinessPercent) { // checking cloudiness to assign right description
   let cloudinessDesc = '';
 
   if (cloudinessPercent <= 25) {
@@ -120,7 +97,7 @@ function cloudinessCheck(cloudinessPercent) {
   return cloudinessDesc;
 }
 
-function checkPressure(pres) {
+function checkPressure(pres) { // checking airPressure to assign right description
   let pressureDesc = '';
 
   if (pres > 1022) {
@@ -371,20 +348,20 @@ async function getCurrentWeather() {
     );
     const weatherData = await response.json();
     console.log(weatherData);
-    place = weatherData.city.name;
+    const place = weatherData.city.name;
     console.log(place);
     appendCity(place);
-    description = weatherData.list[0].weather[0].main;
+    const description = weatherData.list[0].weather[0].main;
     appenndDesc(description);
-    humidity = weatherData.list[0].main.humidity;
+    const { humidity } = weatherData.list[0].main;
     appendhumidity(humidity);
-    cloudiness = weatherData.list[0].clouds.all;
+    const cloudiness = weatherData.list[0].clouds.all;
     appendcloudiness(cloudiness);
-    pressure = weatherData.list[0].main.pressure;
+    const { pressure } = weatherData.list[0].main;
     appendPressure(pressure);
   } catch {
     while (headerTemp.firstChild) {
-      headerTemp.removeChild(headerTemp.firstChild);
+      headerTemp.removeChild(headerTemp.firstChild); // display error
     }
     const errorMsg = document.createElement('h2');
     errorMsg.textContent = 'Location Not Found';
@@ -400,10 +377,10 @@ async function getWindWeather() {
       { mode: 'cors' },
     );
     const weatherData = await response.json();
-    wind = weatherData.list[0].wind.speed;
-    windDirection = weatherData.list[0].wind.deg;
+    const wind = weatherData.list[0].wind.speed;
+    const windDirection = weatherData.list[0].wind.deg;
     appendWind(wind, windDirection);
-    sunset = weatherData.city.sunset;
+    const { sunset } = weatherData.city;
     const sunsetConverted = new Date(sunset).toLocaleTimeString('en-US'); // converting Unix time
     appendSunset(sunsetConverted);
     console.log(weatherData);
@@ -416,7 +393,7 @@ async function getForcastWeather() {
   const location = input.value;
   let fahrenheitOrCelsius;
 
-  if (switchBtn.checked === true) {
+  if (switchBtn.checked === true) { // checking if user toggled  fahrenheit or Celsius
     fahrenheitOrCelsius = 'imperial';
   } else {
     fahrenheitOrCelsius = 'metric';
@@ -427,38 +404,38 @@ async function getForcastWeather() {
       `http://api.openweathermap.org/data/2.5/forecast?q=${location}&units=${fahrenheitOrCelsius}&appid=10c73b0fb77ff9c5076821c36b0d55c3`,
       { mode: 'cors' },
     );
-    const weatherData = await response.json();
-    actualTemp = weatherData.list[0].main.temp;
+    const weatherData = await response.json(); // grabbing and appending each day for the forcast
+    const actualTemp = weatherData.list[0].main.temp;
     appendTempeture(actualTemp);
-    feelsLike = weatherData.list[0].main.feels_like;
+    const feelsLike = weatherData.list[0].main.feels_like;
     appendFeelsLike(feelsLike, actualTemp);
-    day2 = weatherData.list[7].main.temp;
-    desc2 = weatherData.list[7].weather[0].description;
-    imgValue = weatherData.list[7].weather[0].icon;
+    const day2 = weatherData.list[7].main.temp;
+    const desc2 = weatherData.list[7].weather[0].description;
+    const imgValue = weatherData.list[7].weather[0].icon;
     appendImg(imgValue);
     appendForcastDescription(desc2);
     appendForcastTemp(day2);
-    day3 = weatherData.list[14].main.temp;
-    desc3 = weatherData.list[14].weather[0].description;
-    imgValue2 = weatherData.list[14].weather[0].icon;
+    const day3 = weatherData.list[14].main.temp;
+    const desc3 = weatherData.list[14].weather[0].description;
+    const imgValue2 = weatherData.list[14].weather[0].icon;
     appendImg2(imgValue2);
     appendForcastDescription2(desc3);
     appendForcastTemp2(day3);
-    day4 = weatherData.list[22].main.temp;
-    desc4 = weatherData.list[22].weather[0].description;
-    imgValue3 = weatherData.list[22].weather[0].icon;
+    const day4 = weatherData.list[22].main.temp;
+    const desc4 = weatherData.list[22].weather[0].description;
+    const imgValue3 = weatherData.list[22].weather[0].icon;
     appendImg3(imgValue3);
     appendForcastDescription3(desc4);
     appendForcastTemp3(day4);
-    day5 = weatherData.list[30].main.temp;
-    desc5 = weatherData.list[30].weather[0].description;
-    imgValue4 = weatherData.list[30].weather[0].icon;
+    const day5 = weatherData.list[30].main.temp;
+    const desc5 = weatherData.list[30].weather[0].description;
+    const imgValue4 = weatherData.list[30].weather[0].icon;
     appendImg4(imgValue4);
     appendForcastDescription4(desc5);
     appendForcastTemp4(day5);
-    day6 = weatherData.list[39].main.temp;
-    desc6 = weatherData.list[39].weather[0].description;
-    imgValue5 = weatherData.list[39].weather[0].icon;
+    const day6 = weatherData.list[39].main.temp;
+    const desc6 = weatherData.list[39].weather[0].description;
+    const imgValue5 = weatherData.list[39].weather[0].icon;
     appendImg5(imgValue5);
     appendForcastDescription5(desc6);
     appendForcastTemp5(day6);
