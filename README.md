@@ -14,6 +14,10 @@ Info Displayed:
 * Cloudiness
 * Pressure 
 
+## Live Preview
+
+Go ahead and test it out 👉 [here](https://apatrick.me/Weather-App/)
+
 ## Project Preview
 
 ![Pixel True Mockup](https://user-images.githubusercontent.com/56659226/145336556-d9962747-eee7-42fa-a808-393251cf1b0e.png)
