@@ -16,7 +16,7 @@ Info Displayed:
 
 ## Live Preview
 
-Go ahead and test it out 👉 [here](https://apatrick.me/Weather-App/)
+Go ahead and test it out 👉 [here](https://apatrickweather.netlify.app/)
 
 ## Project Preview
 
